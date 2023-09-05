@@ -11,7 +11,7 @@ using namespace json_cpp;
 
 
 int main (int argc, char **argv){
-    string new_world = "21_05";    // input new world name here or as program argument
+    string new_world = "22_01";    // input new world name here or as program argument
 
     Parser p(argc,argv);
     auto occlusions = p.get(Key("-o","--occlusions"),new_world);

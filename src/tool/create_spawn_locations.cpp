@@ -8,7 +8,7 @@ using namespace json_cpp;
 
 
 int main (int argc, char **argv){
-    string new_world = "21_05";
+    string new_world = "22_01";
 
     Parser p(argc,argv);
     auto occlusions = p.get(Key("-o","--occlusions"),new_world);
@@ -31,7 +31,7 @@ int main (int argc, char **argv){
     }
 
 
-//    spawn_locations.save("../../cellworld_data/cell_group/hexagonal."+ occlusions +".spawn_locations");  // MAKE SURE WORLD ARE IS NAMED PROPERLY
+    spawn_locations.save("../../cellworld_data/cell_group/hexagonal."+ occlusions +".spawn_locations");  // MAKE SURE WORLD ARE IS NAMED PROPERLY
     cout << "done....." << endl;
     cout << " New spawn locations created for: " << occlusions  << endl;
     cout << spawn_locations << endl;
