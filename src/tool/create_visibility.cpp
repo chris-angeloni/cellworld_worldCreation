@@ -7,7 +7,7 @@ using namespace std;
 using namespace json_cpp;
 
 int main (int argc, char **argv){
-    string new_world = "22_01";
+    string new_world = "oasis_14_02_padded";
 
     Parser p(argc,argv);
     auto occlusions = p.get(Key("-o","--occlusions"),new_world);
@@ -18,7 +18,7 @@ int main (int argc, char **argv){
     auto cell_transformation = world.get_implementation().cell_transformation;
     auto visibility = Coordinates_visibility::create_graph(cells,cell_shape,cell_transformation);
 
-    visibility.save("../../cellworld_data/graph/hexagonal."+ occlusions +".cell_visibility");  // MAKE SURE WORLD ARE IS NAMED PROPERLY
+    visibility.save("./hexagonal."+ occlusions +".cell_visibility");  // MAKE SURE WORLD ARE IS NAMED PROPERLY
     cout << "done....." << endl;
     cout << "Create visibility for: " << occlusions  << endl;
 

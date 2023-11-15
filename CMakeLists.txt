@@ -58,5 +58,3 @@ target_link_libraries(create_spawn_locations PUBLIC cellworld requests json-cpp 
 add_executable(create_visibility src/tool/create_visibility.cpp)
 target_link_libraries(create_visibility PUBLIC cellworld requests json-cpp params-cpp)
 
-add_executable(create_robot_destination_world src/tool/create_robot_destination_world.cpp)
-target_link_libraries(create_robot_destination_world PUBLIC cellworld requests json-cpp params-cpp)

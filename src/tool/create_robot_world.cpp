@@ -62,7 +62,7 @@ bool adj_occlusions(auto &coord, Map &map1){
 int main(){
 
     // load world and create new_world to modify
-    string occlusions_name = "22_01";
+    string occlusions_name = "21_05";
 
     auto wc = Resources::from("world_configuration").key("hexagonal").get_resource<World_configuration>();
     auto wi = Resources::from("world_implementation").key("hexagonal").key("mice").get_resource<World_implementation>();
@@ -81,12 +81,11 @@ int main(){
 
     // occlude cells that are not navigable
     for(auto &cell : free_cells){
-        //cout << cell << endl;
         bool occluded_bool = adj_occlusions(cell.get().coordinates, map1);
         int index = map2.find(cell.get().coordinates);
         if (occluded_bool){
             world2.cells[index].occluded = true;
-            cout << "new fake occlusions ...................."<< world2.cells[index].coordinates << endl;
+//            cout << "new fake occlusions ...................."<< world2.cells[index].coordinates << endl;
         }
     }
 
@@ -95,14 +94,12 @@ int main(){
     Paths paths(graph);
     auto new_path = paths.get_astar(graph);
 
-    new_path.save("../../cellworld_data/paths/hexagonal." + occlusions_name  + ".astar.robot");
-    cg2.occluded_cells().save("../../cellworld_data/cell_group/hexagonal." + occlusions_name + ".occlusions.robot");
+    // save robot path
+//    new_path.save("../../cellworld_data/paths/hexagonal." + occlusions_name  + ".astar.robot");
+//    cg2.occluded_cells().save("../../cellworld_data/cell_group/hexagonal." + occlusions_name + ".occlusions.robot");
 
+    cout << cg2.occluded_cells() << endl;
     cout << "done....." << endl;
-
-
-
-
     return 0;
 }
 

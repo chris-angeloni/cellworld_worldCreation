@@ -11,10 +11,10 @@ using namespace cell_world;
 
 
 int main(){
-    string  new_world_name = "22_01";    // name of world you are creating
+    string  new_world_name = "oasis_14_02_padded";    // name of world you are creating
 
     // load world and create new_world to modify
-    string occlusions_name = "00_00";
+    string occlusions_name = "oasis_14_02";
     auto wc = Resources::from("world_configuration").key("hexagonal").get_resource<World_configuration>();
     auto wi = Resources::from("world_implementation").key("hexagonal").key("mice").get_resource<World_implementation>();
     auto occlusions = Resources::from("cell_group").key("hexagonal").key(occlusions_name).key("occlusions").get_resource<Cell_group_builder>();
@@ -27,23 +27,23 @@ int main(){
     Map map1 (cg1);
     Map map2 (cg2);
 
-    // modify world by occluding cells
-    vector <vector <int>> new_occlusions {{-14,2},{-1,3},{2,-8},{16,2},{15,3}};  // [[-14, 2], [-1, 3], [2, -8], [16, 2], [15, 3]]
-    for ( auto c : new_occlusions){
-        world2.cells[cg2.find(Coordinates(c[0],c[1]))].occluded = true;
-    }
+//    // modify world by occluding cells
+//    vector <vector <int>> new_occlusions {{-14,2},{-1,3},{2,-8},{16,2},{15,3}};  // [[-14, 2], [-1, 3], [2, -8], [16, 2], [15, 3]]
+//    for ( auto c : new_occlusions){
+//        world2.cells[cg2.find(Coordinates(c[0],c[1]))].occluded = true;
+//    }
 
 
     // create new paths
     Graph graph = world2.create_graph();
     Paths paths(graph);
     auto new_path = paths.get_astar(graph);
-//    cout << new_path << endl;
+    cout << new_path << endl;
 
-    new_path.save("../../cellworld_data/paths/hexagonal." + new_world_name + ".astar");    // MAKE SURE PATHS ARE NAMED PROPERLY
+    new_path.save("./hexagonal." + new_world_name + ".astar");    // MAKE SURE PATHS ARE NAMED PROPERLY
 
      // create new occluded list
-    cg2.occluded_cells().save("../../cellworld_data/cell_group/hexagonal."+ new_world_name +".occlusions");  // MAKE SURE WORLD ARE IS NAMED PROPERLY
+    cg2.occluded_cells().save("./hexagonal."+ new_world_name +".occlusions");  // MAKE SURE WORLD ARE IS NAMED PROPERLY
     cout << "done....." << endl;
     cout << " New world and paths created: " << new_world_name  << endl;
 

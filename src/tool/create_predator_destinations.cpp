@@ -11,7 +11,7 @@ using namespace json_cpp;
 
 
 int main (int argc, char **argv){
-    string new_world = "22_01";    // input new world name here or as program argument
+    string new_world = "21_05";    // input new world name here or as program argument
 
     Parser p(argc,argv);
     auto occlusions = p.get(Key("-o","--occlusions"),new_world);
@@ -21,13 +21,13 @@ int main (int argc, char **argv){
     Graph g = world.create_graph();
     Cell_group pd;
     for (const Cell &cell:cells) {
-        if (graph.is_connected(cell,world.cells[0]) && g[cell].size() == world.connection_pattern.size()){
+        if (graph.is_connected(cell,world.cells[0]) && g[cell].size() == world.connection_pattern.size()){  // if the cell is connected to the entrance and surrounded by free cells add it to destination list
             pd.add(cell);
         }
     }
 
 
-//    pd.save("../../cellworld_data/cell_group/hexagonal."+ occlusions +".predator_destinations");  // MAKE SURE WORLD ARE IS NAMED PROPERLY
+    pd.save("./hexagonal."+ occlusions +".predator_destinations");  // MAKE SURE WORLD ARE IS NAMED PROPERLY
     cout << "done....." << endl;
     cout << " New predator destinations created for: " << occlusions  << endl;
     cout << pd << endl;
