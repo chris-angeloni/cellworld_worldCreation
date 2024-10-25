@@ -8,13 +8,14 @@ using namespace json_cpp;
 
 
 int main (int argc, char **argv){
-    string new_world = "oasis_14_02_padded";
-
     Parser p(argc,argv);
-    auto occlusions = p.get(Key("-o","--occlusions"),new_world);
+    auto occlusions = p.get(Key("-o","--occlusions"),"");
+    auto configuration = p.get(Key("-c","--configuration"),"hexagonal");
+    auto folder = Resources::cache_folder();
+    auto output_file = p.get(Key("-of","--output_file"),folder + "/cell_group/" + configuration + "." + occlusions + ".spawn_locations");
     auto threshold = stof(p.get(Key("-d","--distance"),"0.5"));
-    World world = World::get_from_parameters_name("hexagonal","canonical", occlusions);
 
+    World world = World::get_from_parameters_name(configuration,"canonical", occlusions);
     auto cells = world.create_cell_group();
     Cell_group pd = world.create_cell_group(Resources::from("cell_group").key("hexagonal").key(occlusions).key("predator_destinations").get_resource<Cell_group_builder>());
     Graph g = world.create_graph();
@@ -29,10 +30,5 @@ int main (int argc, char **argv){
             spawn_locations.add(cell);
         }
     }
-
-
-    spawn_locations.save("./hexagonal."+ occlusions +".spawn_locations");  // MAKE SURE WORLD ARE IS NAMED PROPERLY
-    cout << "done....." << endl;
-    cout << " New spawn locations created for: " << occlusions  << endl;
-    cout << spawn_locations << endl;
+    spawn_locations.save(output_file);
 }
